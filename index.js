@@ -1,12 +1,16 @@
-const express = require("express");
-
+const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-// console log IP when new connection established
-app.use((req, res, next) => {
-  console.log("New connection from: " + req.ip);
-  next();
+// listen to socket io connection
+io.on("connection", (socket) => {
+  console.log("New connection from: " + socket.handshake.address);
 });
+
+
 
 // express to handle all requests
 app.get("/", (req, res) => {
@@ -27,7 +31,7 @@ app.all("*", (req, res) => {
   res.status(200).json({ message: "ALL request received" });
 });
 
-app.listen(3000, (req, res) => {
+server.listen(3000, (req, res) => {
   // console.log("TEST Server started on port 3000");
   // keep repeat the heartbeat call every 5 seconds
   // const hbRes = heartBeat('52303');
