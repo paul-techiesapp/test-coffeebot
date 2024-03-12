@@ -2,6 +2,12 @@ const express = require("express");
 
 const app = express();
 
+// console log IP when new connection established
+app.use((req, res, next) => {
+  console.log("New connection from: " + req.ip);
+  next();
+});
+
 app.listen(3000, () => {
   console.log("TEST Server started on port 3000");
 });
