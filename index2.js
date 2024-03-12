@@ -1,7 +1,7 @@
 const net = require('net');
 //define host and port to run the server
 const port = 3000;
-const host = '127.0.0.1';
+const host = 'localhost';
 
 //Create an instance of the server
 const server = net.createServer(onClientConnection);
