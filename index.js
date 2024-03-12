@@ -10,11 +10,14 @@ app.use((req, res, next) => {
 
 app.listen(3000, (req, res) => {
   console.log("TEST Server started on port 3000");
-  const vmcNo = 'VMC123';
-  const serverList = ['server1', 'server2'];
-  const carrierCode = 'ABC';
-  const packedLoginr = packLoginr(vmcNo, serverList, carrierCode);
-  console.log(packedLoginr);
+  // keep repeat the heartbeat call every 5 seconds
+  console.log(hbRes);
+  setInterval(() => {
+    const hbRes = heartBeat('52303');
+    console.log(hbRes)
+  }, 5000);
+
+  // console.log(packedLoginr);
 });
 
 
@@ -182,6 +185,26 @@ function packLoginr(vmc_no, server_list, carrier_code) {
     date_time: getCurrentTime('%Y-%m-%d %H:%M:%S'),
     server_list: server_list
   };
+
+  const body = JSON.stringify(data);
+  const header = packHeader(body.length);
+
+  srvlog.message_log.info('send : ' + body);
+
+  const result = new Uint8Array(header.length + body.length);
+  result.set(header.split('').map(c => c.charCodeAt(0)), 0);
+  result.set(Buffer.from(body, 'latin1'), header.length);
+
+  return result;
+}
+
+function heartBeat(vmc_no) {
+  const data = {
+    cmd: 'hb',
+    vmc_no: vmc_no,
+  };
+
+  // {"cmd":"hb","vmc_no":"52303"}
 
   const body = JSON.stringify(data);
   const header = packHeader(body.length);
