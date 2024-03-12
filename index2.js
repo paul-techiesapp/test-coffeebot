@@ -6,7 +6,12 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  cookies: false,
+  cors: {
+    origin: ["*"],
+  }
+});
 
 // listen to socket io connection
 
@@ -48,3 +53,5 @@ server.listen(3000, (req, res) => {
   // const hbRes = heartBeat('52303');
   // console.log(hbRes);
 });
+
+// const wss = new WebSocket.Server({ server: server, path: "/wr" });
