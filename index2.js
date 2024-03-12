@@ -1,32 +1,50 @@
-const net = require('net');
-//define host and port to run the server
-const port = 3000;
-const host = 'localhost';
+// code for socket connection javascript server side
 
-//Create an instance of the server
-const server = net.createServer(onClientConnection);
-//Start listening with the server on given port and host.
-server.listen(port,host,function(){
-   console.log(`Server started on port ${port} at ${host}`); 
+// Path: index.js
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+// listen to socket io connection
+
+io.on("connection", (socket) => {
+  console.log("New connection from: " + socket.handshake.address);
 });
 
-//Declare connection listener function
-function onClientConnection(sock){
-    //Log when a client connnects.
-    console.log(`${sock.remoteAddress}:${sock.remotePort} Connected`);
-     //Listen for data from the connected client.
-    sock.on('data',function(data){
-        //Log data from the client
-        console.log(`${sock.remoteAddress}:${sock.remotePort} Says : ${data} `);
-        //Send back the data to the client.
-        sock.write(`You Said ${data}`);
-    });
-    //Handle client connection termination.
-    sock.on('close',function(){
-        console.log(`${sock.remoteAddress}:${sock.remotePort} Terminated the connection`);
-    });
-    //Handle Client connection error.
-    sock.on('error',function(error){
-        console.error(`${sock.remoteAddress}:${sock.remotePort} Connection Error ${error}`);
-    });
-};
+// io receive data
+io.on("data", (data) => {
+  console.log("Data received: " + data);
+});
+
+io.on("disconnect", (socket) => {
+  console.log("Connection closed from: " + socket.handshake.address);
+});
+
+// express to handle all requests
+app.get("/", (req, res) => {
+  console.log('------ GET REQUEST ------');
+  console.log(req);
+  res.status(200).json({ message: "GET request received" });
+});
+
+app.post("/", (req, res) => {
+  console.log('------ POST REQUEST ------');
+  console.log(req);
+  res.status(200).json({ message: "POST request received" });
+});
+
+app.all("*", (req, res) => {
+  console.log('------ ALL REQUEST ------');
+  console.log(req);
+  res.status(200).json({ message: "ALL request received" });
+});
+
+server.listen(3000, (req, res) => {
+  console.log("TEST Server started on port 3000");
+  // keep repeat the heartbeat call every 5 seconds
+  // const hbRes = heartBeat('52303');
+  // console.log(hbRes);
+});
