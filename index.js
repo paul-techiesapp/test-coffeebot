@@ -10,6 +10,7 @@ app.use((req, res, next) => {
 
 app.listen(3000, (req, res) => {
   console.log("TEST Server started on port 3000");
+  heartBeat();
 });
 
 
@@ -96,9 +97,9 @@ const heartBeat = () => {
     }
 
     // Assuming pCTcpServer is an object with m_map_StClientInfo property
-    if (pCTcpServer.m_map_StClientInfo[fd]) {
-      pCTcpServer.m_map_StClientInfo[fd].time_tick = 0;
-    }
+    // if (pCTcpServer.m_map_StClientInfo[fd]) {
+    //   pCTcpServer.m_map_StClientInfo[fd].time_tick = 0;
+    // }
 
     // Assuming there is an asynchronous equivalent for sending data (e.g., fetch in a browser environment)
     try {
