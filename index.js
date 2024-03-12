@@ -11,6 +11,7 @@ app.use((req, res, next) => {
 app.listen(3000, (req, res) => {
   console.log("TEST Server started on port 3000");
   // keep repeat the heartbeat call every 5 seconds
+  const hbRes = heartBeat('52303');
   console.log(hbRes);
   setInterval(() => {
     const hbRes = heartBeat('52303');
