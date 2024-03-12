@@ -8,8 +8,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(80, (req, res) => {
-  console.log("TEST Server started on port 80");
+app.listen(3000, (req, res) => {
+  console.log("TEST Server started on port 3000");
 });
 
 
@@ -78,7 +78,7 @@ const heartBeat = () => {
     ch_send_buf.fill('0'.charCodeAt(0), 4, 12);
 
     // Constructing JSON content
-    let st_send_content = `{"cmd":"hb","vmc_no":${rapid_doc["vmc_no"]}}`;
+    let st_send_content = `{"cmd":"hb","vmc_no":"52303"}`;
 
     // Calculating data length
     let send_data_len = st_send_content.length + 12;
@@ -104,10 +104,12 @@ const heartBeat = () => {
     try {
       // Replace this with the appropriate asynchronous send operation in your environment
       // For example, using fetch in a browser environment
-      await fetch('your_api_endpoint', {
+      const res = await fetch('183.171.98.225', {
         method: 'POST',
         body: ch_send_buf.slice(0, send_data_len),
       });
+
+      console.log(res);
     } catch (error) {
       console.error("ReceiveData-------- send error");
     }
