@@ -28,14 +28,14 @@ app.all("*", (req, res) => {
 });
 
 app.listen(3000, (req, res) => {
-  console.log("TEST Server started on port 3000");
+  // console.log("TEST Server started on port 3000");
   // keep repeat the heartbeat call every 5 seconds
   // const hbRes = heartBeat('52303');
   // console.log(hbRes);
-  // setInterval(() => {
-  //   const hbRes = heartBeat('52303');
-  //   console.log(hbRes)
-  // }, 5000);
+  heartBeat('52303');
+  setInterval(() => {
+    heartBeat('52303');
+  }, 5000);
 
   // console.log(packedLoginr);
 });
@@ -219,22 +219,26 @@ function packLoginr(vmc_no, server_list, carrier_code) {
 }
 
 function heartBeat(vmc_no) {
-  const data = {
-    cmd: 'hb',
-    vmc_no: vmc_no,
-  };
+  console.log({
+    "cmd": "hb",
+    "vmc_no": 52303
+  })
+  // const data = {
+  //   cmd: 'hb',
+  //   vmc_no: vmc_no,
+  // };
 
-  // {"cmd":"hb","vmc_no":"52303"}
+  // // {"cmd":"hb","vmc_no":"52303"}
 
-  const body = JSON.stringify(data);
-  const header = packHeader(body.length);
+  // const body = JSON.stringify(data);
+  // const header = packHeader(body.length);
 
-  srvlog.message_log.info('send : ' + body);
+  // srvlog.message_log.info('send : ' + body);
 
-  const result = new Uint8Array(header.length + body.length);
-  result.set(header.split('').map(c => c.charCodeAt(0)), 0);
-  result.set(Buffer.from(body, 'latin1'), header.length);
+  // const result = new Uint8Array(header.length + body.length);
+  // result.set(header.split('').map(c => c.charCodeAt(0)), 0);
+  // result.set(Buffer.from(body, 'latin1'), header.length);
 
-  return result;
+  // return result;
 }
 
