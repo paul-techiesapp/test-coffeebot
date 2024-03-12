@@ -1,17 +1,21 @@
-// const express = require("express");
+const express = require("express");
 
-// const app = express();
+const app = express();
 
-// // console log IP when new connection established
-// app.use((req, res, next) => {
-//   console.log("New connection from: " + req.ip);
-//   next();
-// });
+// console log IP when new connection established
+app.use((req, res, next) => {
+  console.log("New connection from: " + req.ip);
+  next();
+});
 
-// app.listen(3000, (req, res) => {
-//   console.log("TEST Server started on port 3000");
-//   heartBeat();
-// });
+app.listen(3000, (req, res) => {
+  console.log("TEST Server started on port 3000");
+  const vmcNo = 'VMC123';
+  const serverList = ['server1', 'server2'];
+  const carrierCode = 'ABC';
+  const packedLoginr = packLoginr(vmcNo, serverList, carrierCode);
+  console.log(packedLoginr);
+});
 
 
 // function getCurrentTime(FormatStr) {
@@ -191,8 +195,3 @@ function packLoginr(vmc_no, server_list, carrier_code) {
   return result;
 }
 
-const vmcNo = 'VMC123';
-const serverList = ['server1', 'server2'];
-const carrierCode = 'ABC';
-const packedLoginr = packLoginr(vmcNo, serverList, carrierCode);
-console.log(packedLoginr);
