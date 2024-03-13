@@ -1,11 +1,9 @@
-// code for socket connection javascript server side
-
-// Path: index.js
 const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+
 const io = new Server(server, {
   cookies: false,
   cors: {
@@ -14,15 +12,13 @@ const io = new Server(server, {
 });
 
 // listen to socket io connection
-
 io.on("connection", (socket) => {
   console.log("New connection from: " + socket.handshake.address);
+  socket.on('message', (msg) => {
+    socket.emit('message', { message: 'Message received' });
+  });
 });
 
-// io receive data
-io.on("data", (data) => {
-  console.log("Data received: " + data);
-});
 
 io.on("disconnect", (socket) => {
   console.log("Connection closed from: " + socket.handshake.address);
@@ -49,9 +45,4 @@ app.all("*", (req, res) => {
 
 server.listen(3000, (req, res) => {
   console.log("TEST Server started on port 3000");
-  // keep repeat the heartbeat call every 5 seconds
-  // const hbRes = heartBeat('52303');
-  // console.log(hbRes);
 });
-
-// const wss = new WebSocket.Server({ server: server, path: "/wr" });
