@@ -27,6 +27,7 @@ ports.forEach(function (port) {
             console.log('### CLIENT INPUT END ###\n')
 
             const loginRes = login();
+            console.log(loginRes.toString('ascii'));
             sock.write(loginRes);
         });
 

@@ -1,5 +1,5 @@
 function generateBuffer(data) {
-  return Buffer.from(JSON.stringify(data));
+  return Buffer.from('10000000000'+JSON.stringify(data));
   // const body = JSON.stringify(data);
   //   const header = packHeader(body.length);
   //   const result = new Uint8Array(header.length + body.length);
