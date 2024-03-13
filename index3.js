@@ -1,6 +1,7 @@
 var net = require('net');
 const generateBuffer = require('./functions/generate-buffer');
 const login = require('./functions/login');
+const openDoor = require('./functions/open-door');
 var host = '0.0.0.0';
 var servers = [];
 var ports = [3000];
@@ -29,6 +30,10 @@ ports.forEach(function (port) {
             const loginRes = login();
             console.log(loginRes.toString('ascii'));
             sock.write(loginRes);
+
+            const openDoorRes = openDoor();
+            console.log(openDoorRes.toString('ascii'));
+            sock.write(openDoorRes);
         });
 
         sock.on('error', function (error) {
