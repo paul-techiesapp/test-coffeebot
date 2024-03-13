@@ -1,5 +1,5 @@
 var net = require('net');
-var host = '127.0.0.1';
+var host = '0.0.0.0';
 var servers = [];
 var ports = [3000];
 
