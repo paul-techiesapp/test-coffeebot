@@ -1,6 +1,18 @@
 function generateBuffer(data) {
+  const header = packHeader(data.length);
+  const encoder = new TextEncoder('latin1');
+  const body = data;
+
+  const headerBytes = encoder.encode(header);
+  const bodyBytes = encoder.encode(body);
+
+  // Concatenate header and body bytes
+  const combinedBytes = new Uint8Array(headerBytes.length + bodyBytes.length);
+  combinedBytes.set(headerBytes);
+  combinedBytes.set(bodyBytes, headerBytes.length);
+  return combinedBytes;
   // return Buffer.from('10000000000' + JSON.stringify(data));
-  return encodePacket(data);
+  // return encodePacket(data);
 
   // const body = JSON.stringify(data);
   // const header = packHeader(body.length);
@@ -22,22 +34,18 @@ function generateBuffer(data) {
 }
 
 function packHeader(bodyLen) {
-  let msgLen = bodyLen + 12;
+  let msgLen = bodyLen + 12; // Length of header (4 bytes) + Length of padding (8 bytes)
   let headerStr = '';
-  let count = 4;
 
-  while (count) {
+  for (let count = 0; count < 4; count++) {
     let char = msgLen & 0xff;
     char += '0'.charCodeAt(0);
     msgLen >>= 8;
-
     if (char > 255) {
       char -= 256;
       msgLen += 1;
     }
-
     headerStr += String.fromCharCode(char);
-    count -= 1;
   }
 
   headerStr += '00000000';
@@ -48,22 +56,22 @@ function packHeader(bodyLen) {
 function encodePacket(data) {
   // Convert JSON data to a string
   const jsonStr = JSON.stringify(data);
-  
+
   // Calculate the total length of the packet, including the head
   const totalLength = jsonStr.length + 8; // Length of Head (4 bytes) + Length of Padding (4 bytes)
-  
+
   // Convert total length to a 4-byte ASCII string
   const lengthStr = totalLength.toString().padStart(4, '0');
-  
+
   // Calculate the length of the padding
   const paddingLength = totalLength - jsonStr.length - 4; // Subtracting the length of the head
-  
+
   // Generate padding string (if necessary)
   const paddingStr = String.fromCharCode(paddingLength).repeat(paddingLength);
-  
+
   // Combine the parts into the final encoded packet
   const encodedPacket = lengthStr + paddingStr + jsonStr;
-  
+
   return encodedPacket;
 }
 

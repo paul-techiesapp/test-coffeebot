@@ -3,14 +3,14 @@ const generateBuffer = require('./generate-buffer');
 
 // const sessionId = nanoid.customAlphabet('1234567890', 18)
 
-function openDoor() {
-  console.log('-- Open Door --');
+function reboot() {
+  console.log('-- Reboot --');
   const data = {
-    cmd: "opendoor",
+    cmd: "reboot",
     vmc_no: 52303,
     session_id: Math.random() * 100,
   }
   return generateBuffer(data);
 }
 
-module.exports = openDoor;
+module.exports = reboot;
