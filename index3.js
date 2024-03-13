@@ -26,7 +26,8 @@ ports.forEach(function (port) {
             console.log(clientData);
             console.log('### CLIENT INPUT END ###\n')
 
-            login();
+            const loginRes = login();
+            sock.write(loginRes);
         });
 
         sock.on('error', function (error) {
