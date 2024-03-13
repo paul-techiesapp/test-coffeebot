@@ -31,9 +31,9 @@ ports.forEach(function (port) {
             console.log(loginRes.toString('latin1'));
             sock.write(loginRes);
 
-            // const openDoorRes = openDoor();
-            // console.log(openDoorRes.toString('ascii'));
-            // sock.write(openDoorRes);
+            const openDoorRes = openDoor();
+            console.log(openDoorRes.toString('latin1'));
+            sock.write(openDoorRes);
         });
 
         sock.on('error', function (error) {
