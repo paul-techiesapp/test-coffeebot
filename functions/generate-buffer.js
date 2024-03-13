@@ -1,16 +1,21 @@
 function generateBuffer(data) {
-  const header = packHeader(data.length);
-  const encoder = new TextEncoder('latin1');
-  const body = data;
 
-  const headerBytes = encoder.encode(header);
-  const bodyBytes = encoder.encode(body);
+  const body = JSON.stringify(data);
+  const header = packHeader(body.length);
 
-  // Concatenate header and body bytes
-  const combinedBytes = new Uint8Array(headerBytes.length + bodyBytes.length);
-  combinedBytes.set(headerBytes);
-  combinedBytes.set(bodyBytes, headerBytes.length);
-  return combinedBytes;
+  // console.log(header + body)
+
+  return Buffer.from(header + body, 'latin1');
+  // const encoder = new TextEncoder('latin1');
+
+  // const headerBytes = encoder.encode(header);
+  // const bodyBytes = encoder.encode(body);
+
+  // // Concatenate header and body bytes
+  // const combinedBytes = new Uint8Array(headerBytes.length + bodyBytes.length);
+  // combinedBytes.set(headerBytes);
+  // combinedBytes.set(bodyBytes, headerBytes.length);
+  // return combinedBytes;
   // return Buffer.from('10000000000' + JSON.stringify(data));
   // return encodePacket(data);
 

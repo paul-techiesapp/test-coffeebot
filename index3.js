@@ -28,7 +28,7 @@ ports.forEach(function (port) {
             console.log('### CLIENT INPUT END ###\n')
 
             const loginRes = login();
-            // console.log(loginRes.toString('latin1'));
+            console.log(loginRes.toString('latin1'));
             sock.write(loginRes);
 
             // const openDoorRes = openDoor();
