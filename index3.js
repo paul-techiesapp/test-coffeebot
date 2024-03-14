@@ -70,7 +70,7 @@ ports.forEach(function (port) {
 function heartBeat(vmc_no) {
     const data = {
         cmd: 'hb',
-        vmc_no: 66107,
+        vmc_no: 64042,
     };
     console.log('-- HB --')
     return generateBuffer(data);
