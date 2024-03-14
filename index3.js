@@ -38,9 +38,9 @@ ports.forEach(function (port) {
 
             // wait 5 seconds
             setTimeout(() => {
-                const closeDoorRes = machineLock();
-                console.log(closeDoorRes.toString('latin1'));
-                sock.write(closeDoorRes);
+                const openSmallDoorRes = openSmallDoorRes();
+                console.log(openSmallDoorRes.toString('latin1'));
+                sock.write(openSmallDoorRes);
                 sock.end();
             }, 5000);
 
