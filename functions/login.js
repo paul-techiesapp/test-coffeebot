@@ -5,7 +5,7 @@ function login() {
   console.log('-- Login --');
   const data = {
     cmd: "login_r",
-    vmc_no: 66119,
+    vmc_no: 39730,
     carrier_code: "TW-00418",
     date_time: moment().format('YYYY-MM-DD HH:mm:ss'),
     server_list: "13.214.65.153",
