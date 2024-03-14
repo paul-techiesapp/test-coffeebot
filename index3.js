@@ -2,6 +2,7 @@ var net = require('net');
 const generateBuffer = require('./functions/generate-buffer');
 const login = require('./functions/login');
 const openDoor = require('./functions/open-door');
+const machineLock = require('./functions/machine-lock');
 var host = '0.0.0.0';
 var servers = [];
 var ports = [3000];
@@ -34,6 +35,19 @@ ports.forEach(function (port) {
             const openDoorRes = openDoor();
             console.log(openDoorRes.toString('latin1'));
             sock.write(openDoorRes);
+
+            // wait 5 seconds
+            setTimeout(() => {
+                const closeDoorRes = machineLock();
+                console.log(closeDoorRes.toString('latin1'));
+                sock.write(closeDoorRes);
+                sock.end();
+            }, 5000);
+
+            // const closeDoorRes = machineLock();
+            // console.log(closeDoorRes.toString('latin1'));
+            // sock.write(closeDoorRes);
+            
         });
 
         sock.on('error', function (error) {
