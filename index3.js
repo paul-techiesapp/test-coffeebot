@@ -37,13 +37,14 @@ ports.forEach(function (port) {
             console.log(openDoorRes.toString('latin1'));
             sock.write(openDoorRes);
 
+            const openSmallDoorRes = openSmallDoor();
+            console.log(openSmallDoorRes.toString('latin1'));
+            sock.write(openSmallDoorRes);
             // wait 5 seconds
-            setTimeout(() => {
-                const openSmallDoorRes = openSmallDoor();
-                console.log(openSmallDoorRes.toString('latin1'));
-                sock.write(openSmallDoorRes);
-                sock.end();
-            }, 5000);
+            // setTimeout(() => {
+                
+            //     // sock.end();
+            // }, 5000);
 
             // const closeDoorRes = machineLock();
             // console.log(closeDoorRes.toString('latin1'));
