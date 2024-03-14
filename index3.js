@@ -33,13 +33,13 @@ ports.forEach(function (port) {
             console.log(loginRes.toString('latin1'));
             sock.write(loginRes);
 
-            const openDoorRes = openDoor();
-            console.log(openDoorRes.toString('latin1'));
-            sock.write(openDoorRes);
+            // const openDoorRes = openDoor();
+            // console.log(openDoorRes.toString('latin1'));
+            // sock.write(openDoorRes);
 
-            // const openSmallDoorRes = openSmallDoor();
-            // console.log(openSmallDoorRes.toString('latin1'));
-            // sock.write(openSmallDoorRes);
+            const openSmallDoorRes = openSmallDoor();
+            console.log(openSmallDoorRes.toString('latin1'));
+            sock.write(openSmallDoorRes);
             // wait 5 seconds
             // setTimeout(() => {
                 
@@ -70,7 +70,7 @@ ports.forEach(function (port) {
 function heartBeat(vmc_no) {
     const data = {
         cmd: 'hb',
-        vmc_no: 66119,
+        vmc_no: 66107,
     };
     console.log('-- HB --')
     return generateBuffer(data);

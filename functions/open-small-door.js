@@ -8,7 +8,7 @@ function openSmallDoor() {
   const data = {
     cmd:"remote",
     operation: "opensmalldoor",
-    vmc_no: 39730,
+    vmc_no: 66017,
     session_id: Math.random() * 100,
   }
   return generateBuffer(data);
