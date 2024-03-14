@@ -7,7 +7,7 @@ function openDoor() {
   console.log('-- Open Door --');
   const data = {
     cmd: "opendoor",
-    vmc_no: 52303,
+    vmc_no: 66119,
     session_id: Math.random() * 100,
   }
   return generateBuffer(data);

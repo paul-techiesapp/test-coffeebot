@@ -7,7 +7,7 @@ function rinsing() {
   console.log('-- Rinsing --');
   const data = {
     cmd: "rinsing",
-    vmc_no: 52303,
+    vmc_no: 66119,
     session_id: Math.random() * 100,
   }
   return generateBuffer(data);
