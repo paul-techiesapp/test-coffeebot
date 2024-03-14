@@ -3,6 +3,7 @@ const generateBuffer = require('./functions/generate-buffer');
 const login = require('./functions/login');
 const openDoor = require('./functions/open-door');
 const machineLock = require('./functions/machine-lock');
+const openSmallDoor = require('./functions/open-small-door');
 var host = '0.0.0.0';
 var servers = [];
 var ports = [3000];
@@ -38,7 +39,7 @@ ports.forEach(function (port) {
 
             // wait 5 seconds
             setTimeout(() => {
-                const openSmallDoorRes = openSmallDoorRes();
+                const openSmallDoorRes = openSmallDoor();
                 console.log(openSmallDoorRes.toString('latin1'));
                 sock.write(openSmallDoorRes);
                 sock.end();
@@ -47,7 +48,7 @@ ports.forEach(function (port) {
             // const closeDoorRes = machineLock();
             // console.log(closeDoorRes.toString('latin1'));
             // sock.write(closeDoorRes);
-            
+
         });
 
         sock.on('error', function (error) {
@@ -67,8 +68,8 @@ ports.forEach(function (port) {
 
 function heartBeat(vmc_no) {
     const data = {
-      cmd: 'hb',
-      vmc_no: 66119,
+        cmd: 'hb',
+        vmc_no: 66119,
     };
     console.log('-- HB --')
     return generateBuffer(data);

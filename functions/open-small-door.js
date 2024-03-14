@@ -3,7 +3,7 @@ const generateBuffer = require('./generate-buffer');
 
 // const sessionId = nanoid.customAlphabet('1234567890', 18)
 
-function openDoor() {
+function openSmallDoor() {
   console.log('-- Open Small Door --');
   const data = {
     cmd: "opensmalldoor",
@@ -13,4 +13,4 @@ function openDoor() {
   return generateBuffer(data);
 }
 
-module.exports = openDoor;
+module.exports = openSmallDoor;
