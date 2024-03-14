@@ -6,7 +6,8 @@ const generateBuffer = require('./generate-buffer');
 function openSmallDoor() {
   console.log('-- Open Small Door --');
   const data = {
-    cmd: "opensmalldoor",
+    cmd:"remote",
+    operation: "opensmalldoor",
     vmc_no: 66119,
     session_id: Math.random() * 100,
   }
