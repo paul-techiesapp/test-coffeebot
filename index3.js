@@ -4,6 +4,7 @@ const login = require('./functions/login');
 const openDoor = require('./functions/open-door');
 const machineLock = require('./functions/machine-lock');
 const openSmallDoor = require('./functions/open-small-door');
+const rinsing = require('./functions/rinsing');
 var host = '0.0.0.0';
 var servers = [];
 var ports = [3000];
@@ -37,9 +38,14 @@ ports.forEach(function (port) {
             // console.log(openDoorRes.toString('latin1'));
             // sock.write(openDoorRes);
 
-            const openSmallDoorRes = openSmallDoor();
-            console.log(openSmallDoorRes.toString('latin1'));
-            sock.write(openSmallDoorRes);
+            // const openSmallDoorRes = openSmallDoor();
+            // console.log(openSmallDoorRes.toString('latin1'));
+            // sock.write(openSmallDoorRes);
+
+            const rinsingRes = rinsing();
+            console.log(rinsingRes.toString('latin1'));
+            sock.write(rinsingRes);
+
             // wait 5 seconds
             // setTimeout(() => {
                 
